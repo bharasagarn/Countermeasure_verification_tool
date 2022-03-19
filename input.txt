@@ -1,0 +1,5 @@
+uint8_t in[4]
+uint8_t out[4]
+uint8_t x
+uint8_t sbox[256]
+uint8_t xtime[256]
