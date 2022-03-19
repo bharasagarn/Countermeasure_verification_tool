@@ -1,5 +1,6 @@
 How to execute:
 $ g++ -o main main.cc getVariablesList.cc -lz3
+$ ./main
 
 Structure & workflow:
 {list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap, arrayVector, arrayMap}
