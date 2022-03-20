@@ -3,14 +3,14 @@
 
 #include "getVariables.hh"
 
-void addAssertions(z3::solver &s, z3::expr_vector &varVector, std::vector<z3::expr_vector> &arrayVector, varMapType &varMap, varMapType &arrayMap);
+void addAssertions(z3::solver &s, z3::expr_vector &varVector, varMapType &varMap);
 
 int getStatementType(std::string statement);
 
-void processLoop(z3::solver &s, z3::expr_vector &varVector, std::vector<z3::expr_vector> &arrayVector, varMapType &varMap, varMapType &arrayMap);
+void processLoop(z3::solver &s, z3::expr_vector &varVector, varMapType &varMap);
 
-z3::expr processArithmetic(z3::expr_vector &varVector, std::vector<z3::expr_vector> &arrayVector, varMapType &varMap, varMapType &arrayMap);
+z3::expr processArithmetic(z3::expr_vector &varVector, varMapType &varMap);
 
-z3::expr getArrayElement(std::string arrayElementName, std::vector<z3::expr_vector> &arrayVector, varMapType &arrayMap);
+z3::expr getArrayElement(std::string arrayElementName);
 
 #endif

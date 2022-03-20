@@ -1,12 +1,16 @@
 How to execute:
-$ g++ -o main main.cc getVariablesList.cc -lz3
-$ ./main
+```console
+user@system:~$ g++ -o main main.cc getVariablesList.cc -lz3
+user@system:~$ ./main
+```
 
-Structure & workflow:
-{list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap}
+Program flow:
+> {list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap}
 
-{prog.cc, varVector, varMap} -> [getAssertions] -> {solver (with added assertions)}
+> {prog.cc, varVector, varMap} -> [getAssertions] -> {solver (with added assertions)}
 
+Functions:
+```
 - getVariables.cc
   - getVariablesList
   - getArrayDetails
@@ -19,8 +23,12 @@ Structure & workflow:
   - getStatementType
   - processLoop
   - addAssertion?
+  ```
 
 To-Do:
-- Finish processArithmetic function [getAssertions.cc]
-- Finish getArrayElement function [getAssertions.cc]
-- Babysteps to addAssertion function [getAssertions.cc]
+- [x] Design program flow and data structures
+- [x] Extract variables and variable types from input list
+- [x] Declare corresponding z3 variables/constants
+- [ ] Finish processArithmetic function 
+- [ ] Finish getArrayElement function 
+- [ ] Babysteps to addAssertion function 
