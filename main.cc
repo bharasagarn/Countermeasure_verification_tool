@@ -10,33 +10,31 @@ int main() {
     z3::context c;
     z3::expr_vector varVector(c);
     std::vector<z3::expr_vector> arrayVector;
-    // varMap->{varName,varVector_index}, arrayMap->{arrayName,arrayVector_index}
+    // varMap->{varName,varVector_index}
     varMapType varMap;
-    varMapType arrayMap;
-    // trying to refactor array
 
     // z3 variable declaration
     try {
         getVariablesList(varList, "input.txt");
-        declareVariables(varList, c, varVector, arrayVector, varMap, arrayMap);
+        declareVariables(varList, c, varVector, varMap);
 
         varList.clear();getVariablesList(varList, "random.txt");
-        declareVariables(varList, c, varVector, arrayVector, varMap, arrayMap);
+        declareVariables(varList, c, varVector, varMap);
 
         varList.clear();getVariablesList(varList, "intermediate.txt");
-        declareVariables(varList, c, varVector, arrayVector, varMap, arrayMap);
+        declareVariables(varList, c, varVector, varMap);
 
         varList.clear();getVariablesList(varList, "secret.txt");
-        declareVariables(varList, c, varVector, arrayVector, varMap, arrayMap);
+        declareVariables(varList, c, varVector, varMap);
 
         
         std::cout << "Testing rebuilt exprArr for sbox..." << std::endl;
-        std::cout << "Position of sbox in varVector: " << arrayMap["sbox"] << std::endl;
+        std::cout << "Position of sbox in varVector: " << varMap["sbox"] << std::endl;
         z3::solver s(c);
-        s.add(z3::select(varVector[arrayMap["sbox"]],255) == 28);
+        s.add(z3::select(varVector[varMap["sbox"]],255) == 28);
         s.push();
-        z3::expr test_expr = z3::select(varVector[arrayMap["sbox"]],255) == 250;
-        s.add(z3::select(varVector[arrayMap["sbox"]],255) == 27);
+        z3::expr test_expr = z3::select(varVector[varMap["sbox"]],255) == 250;
+        s.add(z3::select(varVector[varMap["sbox"]],255) == 27);
         std::cout << s.check() << std::endl;
         s.pop();
         std::cout << s.check() << std::endl;

@@ -21,6 +21,6 @@ pairStringType getArrayDetails(std::string s);
 
 std::vector<int> getVariableType(pairStringType rawVariable, const char* varName);
 
-void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector, std::vector<z3::expr_vector>& arrayVector, varMapType& varMap, varMapType& arrayMap);
+void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector, varMapType& varMap);
 
 #endif

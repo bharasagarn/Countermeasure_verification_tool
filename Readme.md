@@ -3,9 +3,9 @@ $ g++ -o main main.cc getVariablesList.cc -lz3
 $ ./main
 
 Structure & workflow:
-{list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap, arrayVector, arrayMap}
+{list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap}
 
-{prog.cc, varVector, arrayVector, varMap, arrayMap} -> [getAssertions] -> {solver (with added assertions)}
+{prog.cc, varVector, varMap} -> [getAssertions] -> {solver (with added assertions)}
 
 - getVariables.cc
   - getVariablesList

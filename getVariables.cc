@@ -50,7 +50,7 @@ std::vector<int> getVariableType(pairStringType rawVariable, std::string& varNam
     return res;
 }
 
-void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector, std::vector<z3::expr_vector>& arrayVector, varMapType& varMap, varMapType& arrayMap) {
+void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector, varMapType& varMap) {
 
     // std:: cout << "Entered declareVariables\n";
 
@@ -83,7 +83,7 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
             //     exprArr.push_back(x);
             // }
             varVector.push_back(exprArr);
-            arrayMap[temp.first] = int(varVector.size()-1);
+            varMap[temp.first] = int(varVector.size()-1);
         }
         
     }
