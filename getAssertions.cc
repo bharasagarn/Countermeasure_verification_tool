@@ -1,6 +1,7 @@
 #include "getAssertions.hh"
 
-z3::expr processArithmetic(z3::expr_vector &varVector, varMapType &varMap) {
+z3::expr processArithmetic(std::string expression, z3::expr_vector &varVector, varMapType &varMap, z3::context c) {
+    z3::expr res(c);
     
 }
 
