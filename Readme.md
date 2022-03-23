@@ -5,8 +5,8 @@ user@system:~$ ./main
 ```
 
 Program flow:
-![flowchart_a](pictures/CMVT_flowchart_a.png)
-![flowchart_b](pictures/CMVT_flowchart_b.png)
+![flowchart_i](pictures/CMVT_flowchart_a.png)
+![flowchart_ii](pictures/CMVT_flowchart_b.png)
 
 > {list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap}
 
