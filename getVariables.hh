@@ -1,5 +1,5 @@
-#ifndef GETVARIABLESLIST_H
-#define GETVARIABLESLIST_H
+#ifndef GETVARIABLES_H
+#define GETVARIABLES_H
 
 #include <vector>
 #include <string>

@@ -41,19 +41,19 @@ int main() {
         std::cout << "...Position of t4 in varVector: " << varMap["t4"] << std::endl;
         std::cout << std::endl;
 
-        std::cout << "Testing with assertions :\n";
-        std::cout << "...initializing solver...\n";
-        z3::solver s(c);
-        s.add( z3::select(varVector[varMap["sbox"]],255) == 80 );
-        std::cout << "...added assertion : 'sbox[255]==80'...\n";
-        s.push();
+        // std::cout << "Testing assertions :\n";
+        // std::cout << "...initializing solver...\n";
+        // z3::solver s(c);
+        // s.add( z3::select(varVector[varMap["sbox"]],255) == 80 );
+        // std::cout << "...added assertion : 'sbox[255]==80'...\n";
+        // s.push();
         // z3::expr test_expr = z3::select(varVector[varMap["sbox"]],255) == 250;
-        s.add(z3::select(varVector[varMap["sbox"]],255) == 82 );
-        std::cout << "...added assertion : 'sbox[255]==82'...\n";
-        std::cout << "...Solver check : " << s.check() << "..." << std::endl;
-        s.pop();
-        std::cout << "...Popped last added assertion...\n";
-        std::cout << "...Solver check : " << s.check() << "..." << std::endl;
+        // s.add(z3::select(varVector[varMap["sbox"]],255) == 82 );
+        // std::cout << "...added assertion : 'sbox[255]==82'...\n";
+        // std::cout << "...Solver check : " << s.check() << "..." << std::endl;
+        // s.pop();
+        // std::cout << "...Popped last added assertion...\n";
+        // std::cout << "...Solver check : " << s.check() << "..." << std::endl;
         // std::cout << "Test successful." << std::endl;
 
     } catch(const std::exception& e) {
@@ -62,8 +62,11 @@ int main() {
     }
 
     // z3 solver and assertions
+    std::cout << "Adding assertions :\n";
+    std::cout << "...initializing solver...\n";
     z3::solver s(c);
-    
+    std:: cout << "...reading statements...\n";
+    addAssertions("AES_mixcols_masked_src.txt", varVector, varMap, s);
     
 
     return 0;
