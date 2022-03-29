@@ -35,9 +35,13 @@ int main() {
         std::cout << "...secret variables...\n\n";
         declareVariables(varList, c, varVector, varMap);
 
+        std::cout << "Declaring bv constants 0-255...\n";
+        declareConstants(c, varVector, varMap);
+
         
         std::cout << "Testing variable declarations :\n";
         std::cout << "...Position of sbox in varVector: " << varMap["sbox"] << std::endl;
+        std::cout << "...Position of ind_a252 in varVector: " << varMap["ind_a252"] << std::endl;
         std::cout << "...Position of t4 in varVector: " << varMap["t4"] << std::endl;
         std::cout << std::endl;
 

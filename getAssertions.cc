@@ -8,9 +8,32 @@ bool isExpression(std::string expression) {// "=" is second word in the line (3-
     return false;
 }
 
+int hasOperator(std::string expression) {
+    std::string ops = "+-*/^&|%";
+    int i;
+    for(i=0; i<expression.size(); i++) {
+        for(auto op:ops) {
+            if(expression[i]==op) return i;
+        }
+    }
+    return -1;
+}
+
 z3::expr getExpression(std::string expression, z3::expr_vector &varVector, varMapType &varMap) {
+    std::cout << expression << "\n";
+
     // arithmeticExpression
-    
+    int opPosition = hasOperator(expression);
+    if(opPosition!=-1) {
+        if(expression[opPosition]=='^') return getExpression(expression.substr(0,opPosition), varVector, varMap)^getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='&') return getExpression(expression.substr(0,opPosition), varVector, varMap)&getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='*') return getExpression(expression.substr(0,opPosition), varVector, varMap)*getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='/') return getExpression(expression.substr(0,opPosition), varVector, varMap)/getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='+') return getExpression(expression.substr(0,opPosition), varVector, varMap)+getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='-') return getExpression(expression.substr(0,opPosition), varVector, varMap)-getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='|') return getExpression(expression.substr(0,opPosition), varVector, varMap)|getExpression(expression.substr(opPosition+1), varVector, varMap);
+        if(expression[opPosition]=='%') return getExpression(expression.substr(0,opPosition), varVector, varMap)%getExpression(expression.substr(opPosition+1), varVector, varMap);
+    }
     
     // arrayElement
     if(expression.back()==']') {
@@ -37,7 +60,10 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector, varMapType 
             ss >> st; st.pop_back(); stmt.push_back(st);
             // for(auto v:stmt) std::cout << "|"+v+"|";
             // std::cout << std::endl;
-            s.add(getExpression(stmt[0], varVector, varMap) == getExpression(stmt[1], varVector, varMap));
+            z3::expr e1 = getExpression(stmt[0], varVector, varMap);
+            std::cout << "z3::expr returned is " << e1 << "\n";
+            // z3::expr e2 = getExpression(stmt[1], varVector, varMap);
+            // s.add(getExpression(stmt[0], varVector, varMap) == getExpression(stmt[1], varVector, varMap));
         }
 
         inputProg.close();

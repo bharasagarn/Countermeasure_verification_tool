@@ -63,6 +63,7 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
 
         z3::expr x(c);
         if(varType[0]==1) {
+            // std::cout << "bv_" << varType[1] << "\n";
             x = c.bv_const(varName.c_str(), varType[1]);
             varVector.push_back(x);
             varMap[varName] = int(varVector.size()-1);
@@ -70,18 +71,15 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         else if(varType[0]==2) {
 
             pairStringType temp = getArrayDetails(rawVariable.second);
+            std::cout << "Declaring " << varName << "\n";
+            std::cout << "array : " << int(std::log2(varType[2])) << "->" << varType[1] << "\n";
 
-            z3::sort BVin = c.bv_sort(varType[1]);
-            z3::sort BVout = c.bv_sort(int(std::log2(varType[2])));
+            z3::sort BVin = c.bv_sort(8); // fixed at 8 now (every array can have upto 256 elements, perhaps not all used)
+            z3::sort BVout = c.bv_sort(varType[1]);
             z3::sort BVArray = c.array_sort(BVin,BVout);
 
             z3::expr exprArr = c.constant(varName.c_str(),BVArray);
 
-            // z3::expr_vector exprArr(c);
-            // for(int i=0; i<std::stoi(temp.second); i++) {
-            //     x = c.bv_const((varName+std::to_string(i)).c_str(),varType[1]);
-            //     exprArr.push_back(x);
-            // }
             varVector.push_back(exprArr);
             varMap[temp.first] = int(varVector.size()-1);
         }
@@ -89,4 +87,12 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
     }
 
     // std:: cout << "Exiting declareVariables\n";
+}
+
+void declareConstants(z3::context& c, z3::expr_vector& varVector, varMapType& varMap) {
+    // bv contants 0-255
+    for(int i=0; i<256; i++) {
+        varVector.push_back(c.bv_val(i,8));
+        varMap[std::to_string(i)] = varVector.size()-1;
+    }
 }
