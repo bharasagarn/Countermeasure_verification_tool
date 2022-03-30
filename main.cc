@@ -68,9 +68,11 @@ int main() {
     // z3 solver and assertions
     std::cout << "Adding assertions :\n";
     std::cout << "...initializing solver...\n";
-    z3::solver s(c);
+    z3::solver s1(c);
+    z3::solver s2(c);
     std:: cout << "...reading statements...\n";
-    addAssertions("AES_mixcols_masked_src.txt", varVector, varMap, s);
+    addAssertions("AES_mixcols_masked_src.txt", varVector, varMap, s1);
+    addAssertions("AES_mixcols_masked_src.txt", varVector, varMap, s2);
     
 
     return 0;
