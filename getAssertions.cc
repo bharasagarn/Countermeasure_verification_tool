@@ -20,7 +20,7 @@ int hasOperator(std::string expression) {
 }
 
 z3::expr getExpression(std::string expression, z3::expr_vector &varVector, varMapType &varMap) {
-    std::cout << "Expression under getExpression : " << expression << "\n";
+    // std::cout << "Expression under getExpression : " << expression << "\n";
 
     // arithmeticExpression
     int opPosition = hasOperator(expression);
@@ -58,8 +58,8 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector, varMapType 
             ss >> st; stmt.push_back(st);
             ss >> st;
             ss >> st; st.pop_back(); stmt.push_back(st);
-            for(auto v:stmt) std::cout << "|"+v+"|";
-            std::cout << "\n";
+            // for(auto v:stmt) std::cout << "|"+v+"|";
+            // std::cout << "\n";
             
             s.add(getExpression(stmt[0], varVector, varMap) == getExpression(stmt[1], varVector, varMap));
         }

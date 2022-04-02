@@ -1,6 +1,6 @@
 How to execute:
 ```console
-user@system:~$ g++ -o main main.cc getVariablesList.cc -lz3
+user@system:~$ g++ -o main main.cc getVariables.cc getAssertions.cc -lz3
 user@system:~$ ./main
 ```
 

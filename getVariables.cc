@@ -50,7 +50,7 @@ std::vector<int> getVariableType(pairStringType rawVariable, std::string& varNam
     return res;
 }
 
-void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector, varMapType& varMap) {
+void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1) {
 
     // std:: cout << "Entered declareVariables\n";
 
@@ -64,15 +64,18 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         z3::expr x(c);
         if(varType[0]==1) {
             // std::cout << "bv_" << varType[1] << "\n";
-            x = c.bv_const(varName.c_str(), varType[1]);
-            varVector.push_back(x);
-            varMap[varName] = int(varVector.size()-1);
+            x = c.bv_const((varName+"_0").c_str(), varType[1]);
+            varVector_0.push_back(x);
+            varMap_0[varName] = int(varVector_0.size()-1);
+            x = c.bv_const((varName+"_1").c_str(), varType[1]);
+            varVector_1.push_back(x);
+            varMap_1[varName] = int(varVector_0.size()-1);
         } 
         else if(varType[0]==2) {
 
             pairStringType temp = getArrayDetails(rawVariable.second);
-            std::cout << "Declaring " << varName << "\n";
-            std::cout << "array : " << int(std::log2(varType[2])) << "->" << varType[1] << "\n";
+            // std::cout << "Declaring " << varName << "\n";
+            // std::cout << "array : " << int(std::log2(varType[2])) << "->" << varType[1] << "\n";
 
             z3::sort BVin = c.bv_sort(8); // fixed at 8 now (every array can have upto 256 elements, perhaps not all used)
             z3::sort BVout = c.bv_sort(varType[1]);
