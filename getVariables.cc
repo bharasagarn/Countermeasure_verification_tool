@@ -36,15 +36,17 @@ std::vector<int> getVariableType(pairStringType rawVariable, std::string& varNam
 
     if(rawVariable.first.substr(0,4)=="uint") {
         res[1] = std::stoi(rawVariable.first.substr(4,rawVariable.first.size()-6));
-        varName = rawVariable.second.substr(0,rawVariable.second.size());
-        if(rawVariable.second.back()==']') {
-            res[0] = 2;
-            pairStringType temp = getArrayDetails(rawVariable.second);
-            varName = temp.first;
-            res[2] = stoi(temp.second);
-        }
+    } else if(rawVariable.first=="int") {
+        res[1] = 32;
     } else throw std::exception();
 
+    varName = rawVariable.second.substr(0,rawVariable.second.size());
+    if(rawVariable.second.back()==']') {
+        res[0] = 2;
+        pairStringType temp = getArrayDetails(rawVariable.second);
+        varName = temp.first;
+        res[2] = stoi(temp.second);
+    }
     // std:: cout << "Exiting getVariableType\n";
 
     return res;

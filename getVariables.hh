@@ -19,7 +19,7 @@ void getVariablesList(varListType& varList, std::string fileName);
 
 pairStringType getArrayDetails(std::string s);
 
-std::vector<int> getVariableType(pairStringType rawVariable, const char* varName);
+std::vector<int> getVariableType(pairStringType rawVariable, std::string& varName);
 
 void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1);
 

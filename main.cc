@@ -1,10 +1,14 @@
 #include "getVariables.hh"
 #include "main.hh" 
 #include "getAssertions.hh"
+#include "randomDependence.hh"
+#include "time.h"
 
 int main() {
+    clock_t tStart = clock();
+
     // temporary vector used to store var names and types extracted from src
-    std::vector<std::pair<std::string,std::string>> varList;
+    std::vector<std::pair<std::string,std::string>> inputList, randomList, intermList, secretList;
 
     // z3 context instantiation
     z3::context c;
@@ -18,21 +22,21 @@ int main() {
         std::cout << "Extracting list of variables...\n\n";
         std::cout << "Declaring z3 variables corresponding to :\n";
 
-        getVariablesList(varList, "input.txt");
+        getVariablesList(inputList, "input.txt");
         std::cout << "...input variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
+        declareVariables(inputList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        varList.clear();getVariablesList(varList, "random.txt");
+        getVariablesList(randomList, "random.txt");
         std::cout << "...random variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
+        declareVariables(randomList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        varList.clear();getVariablesList(varList, "intermediate.txt");
+        getVariablesList(intermList, "intermediate.txt");
         std::cout << "...intermediate variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
+        declareVariables(intermList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        varList.clear();getVariablesList(varList, "secret.txt");
+        getVariablesList(secretList, "secret.txt");
         std::cout << "...secret variables...\n\n";
-        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
+        declareVariables(secretList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         std::cout << "Declaring bv constants 0-255...\n";
         declareConstants(c, varVector_0, varMap_0, varVector_1, varMap_1);
@@ -47,34 +51,27 @@ int main() {
         std::cout << "...Position of t4 in varVector_1: " << varMap_1["t4_1"] << std::endl;
         std::cout << std::endl;
 
-        // std::cout << "Testing assertions :\n";
-        // std::cout << "...initializing solver...\n";
-        // z3::solver s(c);
-        // s.add( z3::select(varVector[varMap["sbox"]],255) == 80 );
-        // std::cout << "...added assertion : 'sbox[255]==80'...\n";
-        // s.push();
-        // z3::expr test_expr = z3::select(varVector[varMap["sbox"]],255) == 250;
-        // s.add(z3::select(varVector[varMap["sbox"]],255) == 82 );
-        // std::cout << "...added assertion : 'sbox[255]==82'...\n";
-        // std::cout << "...Solver check : " << s.check() << "..." << std::endl;
-        // s.pop();
-        // std::cout << "...Popped last added assertion...\n";
-        // std::cout << "...Solver check : " << s.check() << "..." << std::endl;
-        // std::cout << "Test successful." << std::endl;
 
     } catch(const std::exception& e) {
         std::cout << "Variable type or declaration error.\n";
         return EXIT_FAILURE;
     }
 
-    // z3 solver and assertions
+    // z3 solver and stmt assertions
     std::cout << "Adding assertions :\n";
     std::cout << "...initializing solver...\n";
     z3::solver s(c);
     std:: cout << "...reading statements...\n";
     addAssertions("AES_mixcols_masked_src.txt", varVector_0, varMap_0, varVector_1, varMap_1, s);
     std::cout << "...added all stmt assertions for bv_0 & bv_1\n";
+    std::cout << std::endl;
     
+
+    // random variable dependence
+    checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s);
+
+
+    std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << ".\n";
 
     return 0;
 }
