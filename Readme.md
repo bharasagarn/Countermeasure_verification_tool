@@ -8,9 +8,9 @@ Program flow:
 ![flowchart_i](pictures/CMVT_flowchart_a.png)
 ![flowchart_ii](pictures/CMVT_flowchart_b.png)
 
-> {list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector, varMap}
+> {list.txt} -> [getVariablesList] -> {varList} -> [declareVariables] -> {varVector_0, varMap_0, varVector_1, varMap_1}
 
-> {prog.cc, varVector, varMap} -> [getAssertions] -> {solver (with added assertions)}
+> {prog.cc, varVector_0, varMap_0, varVector_1, varMap_1} -> [getAssertions] -> {solver (with added assertions)}
 
 Functions:
 ```
@@ -19,19 +19,24 @@ Functions:
   - getArrayDetails
   - getVariableType
   - declareVariables
+  - declareConstants
 
 - getAssertions.cc
-  - processArithmetic
-  - getArrayElement
-  - getStatementType
-  - processLoop
-  - addAssertion?
+  - isExpression
+  - hasOperator
+  - getExpression
+  - addAssertions
   ```
 
 To-Do:
 - [x] Design program flow and data structures
 - [x] Extract variables and variable types from input list
 - [x] Declare corresponding z3 variables/constants
-- [ ] Finish processArithmetic function 
-- [ ] Finish getArrayElement function 
-- [ ] Babysteps to addAssertion function 
+- [x] Finish getExpression function 
+- [x] Babysteps to addAssertion function 
+- [x] Rewrite inputProg in 3-OP unrolled form
+- [x] Add assertions for all operation stmts
+- [x] Refactor addAssertions and declareVariables for bv_0,_1 idea
+- [x] Debug and finish addAssertions
+- [ ] Try randomDependenceCheck idea
+- [ ] Debug, refactor and finish randomDependence
