@@ -64,12 +64,14 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         z3::expr x(c);
         if(varType[0]==1) {
             // std::cout << "bv_" << varType[1] << "\n";
+
             x = c.bv_const((varName+"_0").c_str(), varType[1]);
             varVector_0.push_back(x);
-            varMap_0[varName] = int(varVector_0.size()-1);
+            varMap_0[varName+"_0"] = int(varVector_0.size()-1);
+
             x = c.bv_const((varName+"_1").c_str(), varType[1]);
             varVector_1.push_back(x);
-            varMap_1[varName] = int(varVector_0.size()-1);
+            varMap_1[varName+"_1"] = int(varVector_0.size()-1);
         } 
         else if(varType[0]==2) {
 
@@ -81,10 +83,13 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
             z3::sort BVout = c.bv_sort(varType[1]);
             z3::sort BVArray = c.array_sort(BVin,BVout);
 
-            z3::expr exprArr = c.constant(varName.c_str(),BVArray);
+            z3::expr exprArr_0 = c.constant((varName+"_0").c_str(),BVArray);
+            varVector_0.push_back(exprArr_0);
+            varMap_0[temp.first+"_0"] = int(varVector_0.size()-1);
 
-            varVector.push_back(exprArr);
-            varMap[temp.first] = int(varVector.size()-1);
+            z3::expr exprArr_1 = c.constant((varName+"_1").c_str(),BVArray);
+            varVector_1.push_back(exprArr_1);
+            varMap_1[temp.first+"_1"] = int(varVector_1.size()-1);
         }
         
     }
@@ -92,10 +97,13 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
     // std:: cout << "Exiting declareVariables\n";
 }
 
-void declareConstants(z3::context& c, z3::expr_vector& varVector, varMapType& varMap) {
+void declareConstants(z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1) {
     // bv contants 0-255
     for(int i=0; i<256; i++) {
-        varVector.push_back(c.bv_val(i,8));
-        varMap[std::to_string(i)] = varVector.size()-1;
+        varVector_0.push_back(c.bv_val(i,8));
+        varMap_0[std::to_string(i)+"_0"] = varVector_0.size()-1;
+
+        varVector_1.push_back(c.bv_val(i,8));
+        varMap_1[std::to_string(i)+"_1"] = varVector_1.size()-1;
     }
 }

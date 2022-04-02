@@ -20,36 +20,31 @@ int main() {
 
         getVariablesList(varList, "input.txt");
         std::cout << "...input variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0);
-        declareVariables(varList, c, varVector_1, varMap_1);
+        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         varList.clear();getVariablesList(varList, "random.txt");
         std::cout << "...random variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0);
-        declareVariables(varList, c, varVector_1, varMap_1);
+        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         varList.clear();getVariablesList(varList, "intermediate.txt");
         std::cout << "...intermediate variables...\n";
-        declareVariables(varList, c, varVector_0, varMap_0);
-        declareVariables(varList, c, varVector_1, varMap_1);
+        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         varList.clear();getVariablesList(varList, "secret.txt");
         std::cout << "...secret variables...\n\n";
-        declareVariables(varList, c, varVector_0, varMap_0);
-        declareVariables(varList, c, varVector_1, varMap_1);
+        declareVariables(varList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         std::cout << "Declaring bv constants 0-255...\n";
-        declareConstants(c, varVector_0, varMap_0);
-        declareConstants(c, varVector_1, varMap_1);
+        declareConstants(c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         
         std::cout << "Testing variable declarations :\n";
-        std::cout << "...Position of sbox in varVector_0: " << varMap_0["sbox"] << std::endl;
-        std::cout << "...Position of sbox in varVector_1: " << varMap_1["sbox"] << std::endl;
-        std::cout << "...Position of ind_a252 in varVector_0: " << varMap_0["ind_a252"] << std::endl;
-        std::cout << "...Position of ind_a252 in varVector_1: " << varMap_1["ind_a252"] << std::endl;
-        std::cout << "...Position of t4 in varVector_0: " << varMap_0["t4"] << std::endl;
-        std::cout << "...Position of t4 in varVector_1: " << varMap_1["t4"] << std::endl;
+        std::cout << "...Position of sbox in varVector_0: " << varMap_0["sbox_0"] << std::endl;
+        std::cout << "...Position of sbox in varVector_1: " << varMap_1["sbox_1"] << std::endl;
+        std::cout << "...Expr ind_a252 in varVector_0: " << varVector_0[varMap_0["ind_a252_0"]] << std::endl;
+        std::cout << "...Expr ind_a252 in varVector_1: " << varVector_1[varMap_1["ind_a252_1"]] << std::endl;
+        std::cout << "...Position of t4 in varVector_0: " << varMap_0["t4_0"] << std::endl;
+        std::cout << "...Position of t4 in varVector_1: " << varMap_1["t4_1"] << std::endl;
         std::cout << std::endl;
 
         // std::cout << "Testing assertions :\n";
@@ -77,7 +72,8 @@ int main() {
     std::cout << "...initializing solver...\n";
     z3::solver s(c);
     std:: cout << "...reading statements...\n";
-    addAssertions("AES_mixcols_masked_src.txt", varVector_0, varMap_0, s);
+    addAssertions("AES_mixcols_masked_src.txt", varVector_0, varMap_0, varVector_1, varMap_1, s);
+    std::cout << "...added all stmt assertions for bv_0 & bv_1\n";
     
 
     return 0;

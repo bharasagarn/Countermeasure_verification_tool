@@ -23,6 +23,6 @@ std::vector<int> getVariableType(pairStringType rawVariable, const char* varName
 
 void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1);
 
-void declareConstants(z3::context& c, z3::expr_vector& varVector, varMapType& varMap);
+void declareConstants(z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1);
 
 #endif
