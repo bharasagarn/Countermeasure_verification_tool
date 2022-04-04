@@ -8,7 +8,7 @@ void checkRandomDependence(varListType randomList, varListType intermList, z3::e
 
         std::string rvarName;
         std::vector<int> rvarDetails = getVariableType(v, rvarName); // {{1->bv,2->bv_arr},{bv_sz},{bv_arr_sz}} // assumed single bv
-        if(rvarName!="x") continue;
+        // if(rvarName!="x") continue;
         std::cout << "Checking for random variable "+rvarName+" :\n";
         depList.clear();
 
@@ -27,7 +27,7 @@ void checkRandomDependence(varListType randomList, varListType intermList, z3::e
             std::vector<int> ivarDetails;
             for(auto w:intermList) {
                 ivarDetails = getVariableType(w, ivarName);
-                if(ivarName!="t3x") continue;
+                // if(ivarName!="t3x") continue;
                 std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
 
                 z3::solver irs(c);
