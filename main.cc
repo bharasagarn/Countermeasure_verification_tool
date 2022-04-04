@@ -47,8 +47,8 @@ int main() {
         std::cout << "...Position of sbox in varVector_1: " << varMap_1["sbox_1"] << std::endl;
         std::cout << "...Expr ind_a252 in varVector_0: " << varVector_0[varMap_0["ind_a252_0"]] << std::endl;
         std::cout << "...Expr ind_a252 in varVector_1: " << varVector_1[varMap_1["ind_a252_1"]] << std::endl;
-        std::cout << "...Position of t4 in varVector_0: " << varMap_0["t4_0"] << std::endl;
-        std::cout << "...Position of t4 in varVector_1: " << varMap_1["t4_1"] << std::endl;
+        std::cout << "...Position of t3x in varVector_0: " << varMap_0["t3x_0"] << std::endl;
+        std::cout << "...Position of t3x in varVector_1: " << varMap_1["t3x_1"] << std::endl;
         std::cout << std::endl;
 
 
@@ -68,10 +68,10 @@ int main() {
     
 
     // random variable dependence
-    checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s);
+    checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
 
-    std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << ".\n";
+    std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
 
     return 0;
 }

@@ -26,6 +26,9 @@ Functions:
   - hasOperator
   - getExpression
   - addAssertions
+
+- randomDependence.cc
+  - checkRandomDependence
   ```
 
 To-Do:
@@ -38,5 +41,6 @@ To-Do:
 - [x] Add assertions for all operation stmts
 - [x] Refactor addAssertions and declareVariables for bv_0,_1 idea
 - [x] Debug and finish addAssertions
-- [ ] Try randomDependenceCheck idea
+- [x] Try randomDependenceCheck idea
 - [ ] Debug, refactor and finish randomDependence
+- [ ] Get non-dependent list, and start secretLeakageCheck

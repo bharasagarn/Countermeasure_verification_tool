@@ -70,6 +70,11 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
             
             s.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[1], varVector_0, varMap_0, "_0"));
             s.add(getExpression(stmt[0], varVector_1, varMap_1, "_1") == getExpression(stmt[1], varVector_1, varMap_1, "_1"));
+
+            if(stmt[0] == "t3x[1]") {
+                std::cout << getExpression(stmt[1], varVector_0, varMap_0, "_0") << "\n";
+                std::cout << getExpression(stmt[1], varVector_1, varMap_1, "_1") << "\n";
+            }
         }
 
         inputProg.close();
