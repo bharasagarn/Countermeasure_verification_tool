@@ -42,5 +42,9 @@ To-Do:
 - [x] Refactor addAssertions and declareVariables for bv_0,_1 idea
 - [x] Debug and finish addAssertions
 - [x] Try randomDependenceCheck idea
-- [ ] Debug, refactor and finish randomDependence
-- [ ] Get non-dependent list, and start secretLeakageCheck
+- [x] Debug, refactor and finish randomDependence
+- [x] Get non-dependent list, and start secretLeakage
+- [x] Finish checkSecretLeakage
+- [ ] Test correctness of checkSecretLeakage
+- [ ] Debug and correct checkRandomDependence
+- [ ] separate checkDependenceUtil to avoid repetition
