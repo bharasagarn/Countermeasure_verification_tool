@@ -2,6 +2,7 @@
 #include "main.hh" 
 #include "getAssertions.hh"
 #include "randomDependence.hh"
+#include "secretLeakage.hh"
 #include "time.h"
 
 int main() {
@@ -9,6 +10,7 @@ int main() {
 
     // temporary vector used to store var names and types extracted from src
     std::vector<std::pair<std::string,std::string>> inputList, randomList, intermList, secretList;
+    std::vector<std::string> secretMasksList;
 
     // z3 context instantiation
     z3::context c;
@@ -37,6 +39,7 @@ int main() {
         getVariablesList(secretList, "secret.txt");
         std::cout << "...secret variables...\n\n";
         declareVariables(secretList, c, varVector_0, varMap_0, varVector_1, varMap_1);
+        secretMasksList = getSecretMasks("secretmask.txt");
 
         std::cout << "Declaring bv constants 0-255...\n";
         declareConstants(c, varVector_0, varMap_0, varVector_1, varMap_1);
@@ -68,8 +71,11 @@ int main() {
     
 
     // random variable dependence
-    checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    // varListType nonDepList = checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
+    // final secret leakage check
+    varListType nonDepList = {{"uint8_t", "temp[4]"}};
+    std::set<std::string> leakList = checkSecretLeakage(nonDepList, secretList, secretMasksList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
 

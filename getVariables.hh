@@ -17,6 +17,8 @@ typedef std::map<std::string, int> varMapType;
 
 void getVariablesList(varListType& varList, std::string fileName);
 
+std::vector<std::string> getSecretMasks(std::string fileName);
+
 pairStringType getArrayDetails(std::string s);
 
 std::vector<int> getVariableType(pairStringType rawVariable, std::string& varName);

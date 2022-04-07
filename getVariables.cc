@@ -17,6 +17,20 @@ void getVariablesList(varListType& varList, std::string fileName) {
     inputVarList.close();
 }
 
+std::vector<std::string> getSecretMasks(std::string fileName) {
+
+    std::string s;
+    std::ifstream inputList(fileName);
+    std::vector<std::string> secretMasks;
+
+    while(getline(inputList, s)) {
+        secretMasks.push_back(s);
+    }
+
+    inputList.close();
+    return secretMasks;    
+}
+
 pairStringType getArrayDetails(std::string s) {
     pairStringType res;
     size_t i = 0;
