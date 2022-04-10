@@ -45,6 +45,7 @@ To-Do:
 - [x] Debug, refactor and finish randomDependence
 - [x] Get non-dependent list, and start secretLeakage
 - [x] Finish checkSecretLeakage
-- [ ] Test correctness of checkSecretLeakage
+- [x] Test correctness of checkSecretLeakage
 - [ ] Debug and correct checkRandomDependence
 - [ ] separate checkDependenceUtil to avoid repetition
+- [ ] Try out arrayStorage refactoring to reduce execution time

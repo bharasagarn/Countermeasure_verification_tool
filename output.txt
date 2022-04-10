@@ -1,0 +1,228 @@
+Initializing z3 context...
+
+Extracting list of variables...
+
+Declaring z3 variables corresponding to :
+...input variables...
+...random variables...
+...intermediate variables...
+...secret variables...
+
+...secret key masking variables...
+
+Declaring bv constants 0-255...
+Testing variable declarations :
+...Position of sbox in varVector_0: 2
+...Position of sbox in varVector_1: 2
+...Expr ind_a252 in varVector_0: ind_a252_0
+...Expr ind_a252 in varVector_1: ind_a252_1
+...Position of t3x in varVector_0: 266
+...Position of t3x in varVector_1: 266
+
+Adding assertions :
+...initializing solver...
+...reading statements...
+...added all stmt assertions for bv_0 & bv_1
+
+Checking for secret variable key :
+checking for secret variable position : 0
+...at bv pos 0 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 1 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 2 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 3 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 4 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 5 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 6 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 7 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+checking for secret variable position : 1
+...at bv pos 0 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 1 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 2 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 3 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 4 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 5 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 6 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 7 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+checking for secret variable position : 2
+...at bv pos 0 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 1 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 2 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 3 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 4 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 5 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 6 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 7 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+checking for secret variable position : 3
+...at bv pos 0 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 1 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 2 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 3 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 4 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 5 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 6 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...at bv pos 7 : 
+   ...checking with intermediate variable t
+      ...checking t[0]
+      ...checking t[1]
+      ...checking t[2]
+      ...checking t[3]
+...leaking variables...
+   ...none...
+
+
+Total time elapsed : 24 seconds.

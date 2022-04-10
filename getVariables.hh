@@ -10,6 +10,7 @@
 #include "z3++.h"
 #include <map>
 #include <cmath>
+#include "math.h"
 
 typedef std::pair<std::string, std::string> pairStringType;
 typedef std::vector<std::pair<std::string,std::string>> varListType;

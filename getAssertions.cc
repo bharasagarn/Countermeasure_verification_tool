@@ -47,7 +47,7 @@ z3::expr getExpression(std::string expression, z3::expr_vector &varVector, varMa
     return varVector[varMap[expression+f]];
 }
 
-void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapType &varMap_0, z3::expr_vector &varVector_1, varMapType &varMap_1, z3::solver &s) {
+void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapType &varMap_0, z3::expr_vector &varVector_1, varMapType &varMap_1, z3::solver &s, z3::context& c) {
         
         std::string temp;
         std::ifstream inputProg(fileName);
@@ -60,8 +60,8 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
             ss >> st; stmt.push_back(st);
             ss >> st;
             ss >> st; st.pop_back(); stmt.push_back(st);
-            // for(auto v:stmt) std::cout << "|"+v+"|";
-            // std::cout << "\n";
+            for(auto v:stmt) std::cout << "|"+v+"|";
+            std::cout << "\n";
 
             // z3::expr e1_0 = getExpression(stmt[0], varVector_0, varMap_0, "_0");std::cout << "LHS expr_0 : " << e1_0 << "\n";
             // z3::expr e2_0 = getExpression(stmt[1], varVector_0, varMap_0, "_0");std::cout << "RHS expr_0 : " << e2_0 << "\n";
@@ -71,9 +71,16 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
             s.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[1], varVector_0, varMap_0, "_0"));
             s.add(getExpression(stmt[0], varVector_1, varMap_1, "_1") == getExpression(stmt[1], varVector_1, varMap_1, "_1"));
 
-            if(stmt[0] == "t3x[1]") {
-                std::cout << getExpression(stmt[1], varVector_0, varMap_0, "_0") << "\n";
-                std::cout << getExpression(stmt[1], varVector_1, varMap_1, "_1") << "\n";
+            if(stmt[0]=="ind_a3") {
+                z3::solver rs(c);
+                rs.add(s.assertions());
+                rs.add(getExpression("a", varVector_0, varMap_0, "_0").extract(0,0) == 0);
+                rs.add(getExpression("a", varVector_1, varMap_1, "_1").extract(0,0) == 1);
+                z3::solver irs(c);
+                irs.add(rs.assertions());
+                irs.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[0], varVector_1, varMap_1, "_1"));
+                std::cout << irs.assertions() << std::endl;
+                std::cout << irs.check() << std::endl;
             }
         }
 
