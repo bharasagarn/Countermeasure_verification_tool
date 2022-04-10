@@ -39,6 +39,7 @@ z3::expr getExpression(std::string expression, z3::expr_vector &varVector, varMa
     if(expression.back()==']') {
         // std::cout << "getExpression :: array"+f+"\n";
         pairStringType arrayDetails = getArrayDetails(expression);
+        // return varVector[z3::select(varVector[varMap[arrayDetails.first+"_pos"+f]],getExpression(arrayDetails.second, varVector, varMap, f))];
         return z3::select(varVector[varMap[arrayDetails.first+f]],getExpression(arrayDetails.second, varVector, varMap, f));
     }
 
@@ -76,6 +77,7 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
                 rs.add(s.assertions());
                 rs.add(getExpression("a", varVector_0, varMap_0, "_0").extract(0,0) == 0);
                 rs.add(getExpression("a", varVector_1, varMap_1, "_1").extract(0,0) == 1);
+
                 z3::solver irs(c);
                 irs.add(rs.assertions());
                 irs.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[0], varVector_1, varMap_1, "_1"));

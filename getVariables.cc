@@ -77,9 +77,9 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         std::vector<int> varType = getVariableType(rawVariable, varName);
         
 
-        z3::expr x(c);
         if(varType[0]==1) {
             // std::cout << "bv_" << varType[1] << "\n";
+            z3::expr x(c);
 
             x = c.bv_const((varName+"_0").c_str(), varType[1]);
             varVector_0.push_back(x);
@@ -93,7 +93,7 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
 
             pairStringType temp = getArrayDetails(rawVariable.second);
             // std::cout << "Declaring " << varName << "\n";
-            // std::cout << "array : " << int(std::log2(varType[2])) << "->" << varType[1] << "\n";
+            // std::cout << "array : " << varType[2] << "->" << varType[1] << "\n";
 
             z3::sort BVin = c.bv_sort(8); // fixed at 8 now (every array can have upto 256 elements, perhaps not all used)
             z3::sort BVout = c.bv_sort(varType[1]);
@@ -106,6 +106,29 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
             z3::expr exprArr_1 = c.constant((varName+"_1").c_str(),BVArray);
             varVector_1.push_back(exprArr_1);
             varMap_1[temp.first+"_1"] = int(varVector_1.size()-1);
+
+            z3::sort BVInd = c.bv_sort(8);
+            z3::sort PosInt = c.int_sort();
+            z3::sort posVectorSort = c.array_sort(BVInd, PosInt);
+
+            // z3::expr arrPosVector_0 = c.constant((varName+"_pos_0").c_str(), posVectorSort);
+            // varVector_0.push_back(arrPosVector_0); varMap_0[varName+"_pos_0"] = int(varVector_0.size()-1);
+            // z3::expr arrPosVector_1 = c.constant((varName+"_pos_1").c_str(), posVectorSort);
+            // varVector_1.push_back(arrPosVector_1); varMap_1[varName+"_pos_1"] = int(varVector_1.size()-1);
+
+            // for(int ind=0; ind<varType[2]; ind++) {
+            //     z3::expr x_0(c);
+            //     x_0 = c.bv_const((varName+"["+std::to_string(ind)+"]_0").c_str(), varType[1]);
+            //     varVector_0.push_back(x_0);
+            //     z3::store(arrPosVector_0, ind, int(varVector_0.size()-1));
+            //     std::cout << z3::select(arrPosVector_0, ind) << std::endl;
+
+            //     z3::expr x_1(c);
+            //     x_1 = c.bv_const((varName+"["+std::to_string(ind)+"]_1").c_str(), varType[1]);
+            //     varVector_1.push_back(x_1);
+            //     z3::store(arrPosVector_1, ind, int(varVector_1.size()-1));
+            // }
+            
         }
         
     }

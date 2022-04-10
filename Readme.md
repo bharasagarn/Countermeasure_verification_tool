@@ -46,6 +46,9 @@ To-Do:
 - [x] Get non-dependent list, and start secretLeakage
 - [x] Finish checkSecretLeakage
 - [x] Test correctness of checkSecretLeakage
-- [ ] Debug and correct checkRandomDependence
-- [ ] separate checkDependenceUtil to avoid repetition
-- [ ] Try out arrayStorage refactoring to reduce execution time
+- [x] Debug and correct checkRandomDependence
+- [x] separate checkDependenceUtil to avoid repetition
+- [x] Try out arrayStorage refactoring to fix everything
+- [ ] Implement 'ite' idea for array access
+- [ ] Working program ready for demonstration
+- [ ] Update readme for easier explanation of code
