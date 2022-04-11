@@ -16,9 +16,12 @@ std::set<std::string> checkSecretLeakage(varListType nonDepList, varListType sec
                 ss.add(s.assertions());
                 z3::expr svar_0 = getExpression(svarName, varVector_0, varMap_0, "_0");
                 z3::expr svar_1 = getExpression(svarName, varVector_1, varMap_1, "_1");
-                int powbvPos = 1 << bvPos;
-                ss.add((((svar_0&(powbvPos)) / (powbvPos)) == 0));
-                ss.add((((svar_1&(powbvPos)) / (powbvPos)) == 1));
+                // std::cout << svar_0 << "\n";
+                // int powbvPos = 1 << bvPos;
+                // ss.add((((svar_0&(powbvPos)) / (powbvPos)) == 0));
+                // ss.add((((svar_1&(powbvPos)) / (powbvPos)) == 1));
+                ss.add(svar_0.extract(bvPos,bvPos)==0);
+                ss.add(svar_1.extract(bvPos,bvPos)==1);
 
                 // check dependence of the non-dependent intermediate variables
                 std::string ivarName;
@@ -53,7 +56,7 @@ std::set<std::string> checkSecretLeakage(varListType nonDepList, varListType sec
                     std::vector<int> ivarDetails;
                     for(auto w:nonDepList) {
                         ivarDetails = getVariableType(w, ivarName);
-                        // if(ivarName!="t3x") continue;
+                        if(ivarName!="t") continue;
                         std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
                         if(checkDependenceUtil(w, ss, c, varVector_0, varMap_0, varVector_1, varMap_1)) leakList.insert(ivarName);
                     }

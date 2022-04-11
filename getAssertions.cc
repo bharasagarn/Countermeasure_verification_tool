@@ -39,8 +39,9 @@ z3::expr getExpression(std::string expression, z3::expr_vector &varVector, varMa
     if(expression.back()==']') {
         // std::cout << "getExpression :: array"+f+"\n";
         pairStringType arrayDetails = getArrayDetails(expression);
-        // return varVector[z3::select(varVector[varMap[arrayDetails.first+"_pos"+f]],getExpression(arrayDetails.second, varVector, varMap, f))];
+        // // return varVector[z3::select(varVector[varMap[arrayDetails.first+"[pos]"+f]],getExpression(arrayDetails.second, varVector, varMap, f))];
         return z3::select(varVector[varMap[arrayDetails.first+f]],getExpression(arrayDetails.second, varVector, varMap, f));
+
     }
 
     // singleExpression (varName)
@@ -68,11 +69,11 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
             // z3::expr e2_0 = getExpression(stmt[1], varVector_0, varMap_0, "_0");std::cout << "RHS expr_0 : " << e2_0 << "\n";
             // z3::expr e1_1 = getExpression(stmt[0], varVector_1, varMap_1, "_1");std::cout << "LHS expr_1 : " << e1_1 << "\n";
             // z3::expr e2_1 = getExpression(stmt[1], varVector_1, varMap_1, "_1");std::cout << "RHS expr_1 : " << e2_1 << "\n";
-            
+
             s.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[1], varVector_0, varMap_0, "_0"));
             s.add(getExpression(stmt[0], varVector_1, varMap_1, "_1") == getExpression(stmt[1], varVector_1, varMap_1, "_1"));
 
-            if(stmt[0]=="ind_a3") {
+            if(stmt[0]=="ind_a0") {
                 z3::solver rs(c);
                 rs.add(s.assertions());
                 rs.add(getExpression("a", varVector_0, varMap_0, "_0").extract(0,0) == 0);
@@ -81,7 +82,7 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
                 z3::solver irs(c);
                 irs.add(rs.assertions());
                 irs.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[0], varVector_1, varMap_1, "_1"));
-                std::cout << irs.assertions() << std::endl;
+                // std::cout << irs.assertions() << std::endl;
                 std::cout << irs.check() << std::endl;
             }
         }

@@ -24,7 +24,7 @@ bool checkDependenceUtil(pairStringType ivar, z3::solver& xs, z3::context& c, z3
             // s.push();
             ixs.push();
             ixs.add(z3::select(getExpression(ivarName, varVector_0, varMap_0, "_0"), iarrPos) == z3::select(getExpression(ivarName, varVector_1, varMap_1, "_1"), iarrPos));
-            std::cout << ixs.assertions() << "\n\n";
+            // std::cout << ixs.assertions() << "\n\n";
             if(ixs.check()==z3::unsat) {
                 // std::cout << "      ...unsat...\n";
                 return true;
@@ -48,7 +48,7 @@ varListType checkRandomDependence(varListType randomList, varListType intermList
 
         std::string rvarName;
         std::vector<int> rvarDetails = getVariableType(v, rvarName); // {{1->bv,2->bv_arr},{bv_sz},{bv_arr_sz}} // assumed single bv
-        if(rvarName!="b") continue;
+        if(rvarName!="x") continue;
         std::cout << "Checking for random variable "+rvarName+" :\n";
         // depList.clear();
 
@@ -68,10 +68,15 @@ varListType checkRandomDependence(varListType randomList, varListType intermList
             for(int intermIndex=0; intermIndex<intermList.size(); intermIndex++) {
                 auto w = intermList[intermIndex];
                 ivarDetails = getVariableType(w, ivarName);
-                if(ivarName!="sboxm") continue;
+                if(ivarName!="t3x") continue;
 
                 std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
-                if(checkDependenceUtil(w, rs, c, varVector_0, varMap_0, varVector_1, varMap_1)) depIntermIndex.insert(intermIndex);
+                if(checkDependenceUtil(w, rs, c, varVector_0, varMap_0, varVector_1, varMap_1)) {
+                    std::cout << "unsat\n";
+                    depIntermIndex.insert(intermIndex);
+                } else {
+                    std::cout << "sat\n";
+                }
             }
 
             // s.pop();

@@ -1,0 +1,4 @@
+uint8_t in
+uint8_t out
+uint8_t sbox
+uint8_t xtime
