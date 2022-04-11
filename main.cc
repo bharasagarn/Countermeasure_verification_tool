@@ -67,6 +67,17 @@ int main() {
     std::cout << "Adding assertions :\n";
     std::cout << "...initializing solver...\n";
     z3::solver s(c);
+    for(auto v:inputList) {
+        std::string varName;
+        std::vector<int> varType = getVariableType(v, varName);
+        if(varType[0]==1) {
+            s.add(varVector_0[varMap_0[varName+"_0"]] == varVector_1[varMap_1[varName+"_1"]]);
+        } else {
+            for(int pos=0; pos<256; pos++) {
+                s.add((z3::select(varVector_0[varMap_0[varName+"_0"]],pos)) == (z3::select(varVector_1[varMap_1[varName+"_1"]],pos)));
+            }
+        }
+    }
     std:: cout << "...reading statements...\n";
     addAssertions("AES_mixcols_masked_src_unsafe.txt", varVector_0, varMap_0, varVector_1, varMap_1, s, c);
     // std::cout << s.assertions() << "\n";
@@ -75,10 +86,10 @@ int main() {
     
 
     // random variable dependence
-    // varListType nonDepList = checkRandomDependence(randomList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    varListType nonDepList = checkRandomDependence(randomList, secretList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     // final secret leakage check
-    varListType nonDepList = {{"uint8_t", "t[4]"}};
+    // varListType nonDepList = {{"uint8_t", "t[4]"}};
     std::set<std::string> leakList = checkSecretLeakage(nonDepList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";

@@ -73,14 +73,15 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
             s.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[1], varVector_0, varMap_0, "_0"));
             s.add(getExpression(stmt[0], varVector_1, varMap_1, "_1") == getExpression(stmt[1], varVector_1, varMap_1, "_1"));
 
-            if(stmt[0]=="ind_a0") {
+            if(stmt[0]=="sboxm[0]") {
                 z3::solver rs(c);
                 rs.add(s.assertions());
-                rs.add(getExpression("a", varVector_0, varMap_0, "_0").extract(0,0) == 0);
-                rs.add(getExpression("a", varVector_1, varMap_1, "_1").extract(0,0) == 1);
+                rs.add(getExpression("b", varVector_0, varMap_0, "_0").extract(0,0) == 0);
+                rs.add(getExpression("b", varVector_1, varMap_1, "_1").extract(0,0) == 1);
 
                 z3::solver irs(c);
                 irs.add(rs.assertions());
+                irs.add(getExpression("a", varVector_0, varMap_0, "_0") == getExpression("a", varVector_1, varMap_1, "_1"));
                 irs.add(getExpression(stmt[0], varVector_0, varMap_0, "_0") == getExpression(stmt[0], varVector_1, varMap_1, "_1"));
                 // std::cout << irs.assertions() << std::endl;
                 std::cout << irs.check() << std::endl;
