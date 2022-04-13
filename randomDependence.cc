@@ -33,7 +33,7 @@ bool checkDependenceUtil(pairStringType ivar, z3::solver& xs, z3::context& c, z3
             }
             // s.pop();
             ixs.pop();
-            break;
+            // break;
         }
     }
 
@@ -48,8 +48,8 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
 
         std::string rvarName;
         std::vector<int> rvarDetails = getVariableType(v, rvarName); // {{1->bv,2->bv_arr},{bv_sz},{bv_arr_sz}} // assumed single bv
-        if(rvarName!="b") continue;
-        std::cout << "Checking for random variable "+rvarName+" :\n";
+        // if(rvarName!="b") continue;
+        std::cout << "...for random variable "+rvarName+" :\n";
         // depList.clear();
 
         for(int bvPos=0; bvPos<rvarDetails[1]; bvPos++) {
@@ -93,14 +93,14 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
             for(int intermIndex=0; intermIndex<intermList.size(); intermIndex++) {
                 auto w = intermList[intermIndex];
                 ivarDetails = getVariableType(w, ivarName);
-                if(ivarName!="sboxm") continue;
+                if(ivarName!="temp") continue;
 
                 std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
                 if(checkDependenceUtil(w, rs, c, varVector_0, varMap_0, varVector_1, varMap_1)) {
-                    std::cout << "unsat\n";
+                    std::cout << "   ...dependent...\n";
                     depIntermIndex.insert(intermIndex);
                 } else {
-                    std::cout << "sat\n";
+                    std::cout << "   ...non-dependent...\n";
                 }
             }
 

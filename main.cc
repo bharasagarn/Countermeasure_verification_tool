@@ -36,26 +36,26 @@ int main() {
         declareVariables(intermList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         getVariablesList(secretList, "secret.txt");
-        std::cout << "...secret variables...\n\n";
+        std::cout << "...secret variables...\n";
         declareVariables(secretList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
 
         getVariablesList(secretMaskList, "secretmask.txt");
-        std::cout << "...secret key masking variables...\n\n";
+        std::cout << "...secret key masking variables...\n";
         declareVariables(secretMaskList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        std::cout << "Declaring bv constants 0-255...\n";
+        std::cout << "...bv constants 0-255...\n\n";
         declareConstants(c, varVector_0, varMap_0, varVector_1, varMap_1);
 
         
-        std::cout << "Testing variable declarations :\n";
-        std::cout << "...Position of sbox[1] in varVector_0: " << varMap_0["sbox[1]_0"] << std::endl;
-        std::cout << "...Position of sbox[1] in varVector_1: " << varMap_1["sbox[1]_1"] << std::endl;
-        std::cout << "...Expr ind_a252 in varVector_0: " << varVector_0[varMap_0["ind_a252_0"]] << std::endl;
-        std::cout << "...Expr ind_a252 in varVector_1: " << varVector_1[varMap_1["ind_a252_1"]] << std::endl;
-        std::cout << "...Position of t3x[2] in varVector_0: " << varMap_0["t3x[2]_0"] << std::endl;
-        std::cout << "...Position of t3x[2] in varVector_1: " << varMap_1["t3x[2]_1"] << std::endl;
-        std::cout << std::endl;
+        // std::cout << "Testing variable declarations :\n";
+        // std::cout << "...Position of sbox[1] in varVector_0: " << varMap_0["sbox[1]_0"] << std::endl;
+        // std::cout << "...Position of sbox[1] in varVector_1: " << varMap_1["sbox[1]_1"] << std::endl;
+        // std::cout << "...Expr ind_a252 in varVector_0: " << varVector_0[varMap_0["ind_a252_0"]] << std::endl;
+        // std::cout << "...Expr ind_a252 in varVector_1: " << varVector_1[varMap_1["ind_a252_1"]] << std::endl;
+        // std::cout << "...Position of t3x[2] in varVector_0: " << varMap_0["t3x[2]_0"] << std::endl;
+        // std::cout << "...Position of t3x[2] in varVector_1: " << varMap_1["t3x[2]_1"] << std::endl;
+        // std::cout << std::endl;
 
 
     } catch(const std::exception& e) {
@@ -67,6 +67,7 @@ int main() {
     std::cout << "Adding assertions :\n";
     std::cout << "...initializing solver...\n";
     z3::solver s(c);
+    std::cout << "...asserting input variables equal for _0,_1...\n";
     for(auto v:inputList) {
         std::string varName;
         std::vector<int> varType = getVariableType(v, varName);
@@ -86,11 +87,12 @@ int main() {
     
 
     // random variable dependence
-    varListType nonDepList = checkRandomDependence(randomList, secretList, secretMaskList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    // std::cout << "Checking dependence on random variables : \n";
+    // varListType nonDepList = checkRandomDependence(randomList, secretList, secretMaskList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     // final secret leakage check
-    // varListType nonDepList = {{"uint8_t", "t[4]"}};
-    // std::set<std::string> leakList = checkSecretLeakage(nonDepList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    varListType nonDepList = {{"uint8_t", "t[4]"},{"uint8_t", "t2[4]"}};
+    std::set<std::string> leakList = checkSecretLeakage(nonDepList, randomList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
 
