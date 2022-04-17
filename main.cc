@@ -87,12 +87,12 @@ int main() {
     
 
     // random variable dependence
-    // std::cout << "Checking dependence on random variables : \n";
-    // varListType nonDepList = checkRandomDependence(randomList, secretList, secretMaskList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    std::cout << "Checking dependence on random variables : \n";
+    varListType nonDepList = checkRandomDependence(randomList, secretList, secretMaskList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     // final secret leakage check
-    varListType nonDepList = {{"uint8_t", "t[4]"},{"uint8_t", "t2[4]"}};
-    std::set<std::string> leakList = checkSecretLeakage(nonDepList, randomList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    // varListType nonDepList = {{"uint8_t", "t[4]"},{"uint8_t", "t2[4]"}};
+    // std::set<std::string> leakList = checkSecretLeakage(nonDepList, randomList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
 

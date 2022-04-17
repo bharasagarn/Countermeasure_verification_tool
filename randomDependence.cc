@@ -93,7 +93,7 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
             for(int intermIndex=0; intermIndex<intermList.size(); intermIndex++) {
                 auto w = intermList[intermIndex];
                 ivarDetails = getVariableType(w, ivarName);
-                if(ivarName!="temp") continue;
+                if(ivarName!="sboxm") continue;
 
                 std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
                 if(checkDependenceUtil(w, rs, c, varVector_0, varMap_0, varVector_1, varMap_1)) {

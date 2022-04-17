@@ -49,6 +49,9 @@ To-Do:
 - [x] Debug and correct checkRandomDependence
 - [x] separate checkDependenceUtil to avoid repetition
 - [x] Try out arrayStorage refactoring to fix everything
-- [ ] Implement 'ite' idea for array access
-- [ ] Working program ready for demonstration
-- [ ] Update readme for easier explanation of code
+- [x] Implement 'ite' idea for array access
+- [x] Working program ready for demonstration
+- [x] Update readme for easier explanation of code
+- [ ] Work on a better Readme
+- [ ] Try fixing time burst of randomDependence
+- [ ] Cleaner maintainable code

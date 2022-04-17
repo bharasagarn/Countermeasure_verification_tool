@@ -1,0 +1,46 @@
+uint8_t secondOrderMaskingMultiply(uint8_t txt, uint8_t mkey, uint8_t smask, uint8_t omask) {
+    uint8_t mask0;
+    uint8_t mask1;
+    uint8_t mask2;
+    uint8_t mask3;
+    uint8_t mask4;
+    uint8_t mask5;
+    uint8_t mask6;
+    smask = mask0 ^ mask1;
+
+    uint8_t t2temp = mask2 ^ mask3;
+    uint8_t t2 = t2temp ^ txt;
+
+    uint8_t t3temp1 = mask4 ^ mask0;
+    uint8_t t3temp2 = t3temp1 * mask3;
+    uint8_t t3temp3 = t3temp2 ^ mask1;
+    uint8_t t3 = t3temp3 * mask2;
+
+    uint8_t t4temp1 = mask5 ^ mask0;
+    uint8_t t4temp2 = t4temp1 * t2;
+    uint8_t t4temp3 = t4temp2 ^ mkey;
+    uint8_t t4 = t4temp3 * mask2;
+
+    uint8_t t5temp1 = mask6 ^ mask1;
+    uint8_t t5temp2 = mask0 ^ mask1;
+    uint8_t t5temp3 = t5temp2 ^ mkey;
+    uint8_t t5 = t5temp3 * mask3;
+
+    uint8_t res0temp1 = mask2 ^ mask4;
+    uint8_t res0temp2 = res0temp1 * mask0;
+    uint8_t res0 = res0temp2 ^ mask5;
+
+    uint8_t res1temp1 = mask3 ^ t3;
+    uint8_t res1temp2 = res1temp1 * mask1;
+    uint8_t res1 = res1temp2 ^ mask6;
+
+    uint8_t res2temp1 = t2 ^ t4;
+    uint8_t res2temp2 = res2temp1 * t1;
+    uint8_t res2 = res2temp2 ^ t5;
+
+    uint8_t restemp1 = res0 ^ omask;
+    uint8_t restemp2 = restemp1 ^ res1;
+    uint8_t res = restemp2 ^ res2;
+    
+    return res;
+}

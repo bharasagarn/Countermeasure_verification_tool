@@ -1,0 +1,8 @@
+uint8_t mask0
+uint8_t mask1
+uint8_t mask2
+uint8_t mask3
+uint8_t mask4
+uint8_t mask5
+uint8_t mask6
+uint8_t omask
