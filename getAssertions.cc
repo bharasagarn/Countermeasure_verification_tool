@@ -55,7 +55,9 @@ void addAssertions(std::string fileName, z3::expr_vector &varVector_0, varMapTyp
         std::ifstream inputProg(fileName);
 
         while(getline(inputProg, temp)) {
+            // std::cout << temp << std::endl;
             if(!isExpression(temp)) continue;
+            // std::cout << temp << std::endl;
             std::stringstream ss(temp);
             std::string st;
             std::vector<std::string> stmt;

@@ -20,7 +20,7 @@ bool checkDependenceUtil(pairStringType ivar, z3::solver& xs, z3::context& c, z3
     else if(ivarDetails[0]==2) {
         bool isDep = false;
         for(int iarrPos=0; iarrPos<ivarDetails[2]; iarrPos++) {
-            std::cout << "      ...checking "+ivarName+"[" << iarrPos << "]\n";
+            // std::cout << "      ...checking "+ivarName+"[" << iarrPos << "]\n";
             // s.push();
             ixs.push();
             ixs.add(z3::select(getExpression(ivarName, varVector_0, varMap_0, "_0"), iarrPos) == z3::select(getExpression(ivarName, varVector_1, varMap_1, "_1"), iarrPos));
@@ -49,22 +49,23 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
         std::string rvarName;
         std::vector<int> rvarDetails = getVariableType(v, rvarName); // {{1->bv,2->bv_arr},{bv_sz},{bv_arr_sz}} // assumed single bv
         // if(rvarName!="b") continue;
-        std::cout << "...for random variable "+rvarName+" :\n";
+        std::cout << "...for random variable "+rvarName+"...\n";
         // depList.clear();
 
         for(int bvPos=0; bvPos<rvarDetails[1]; bvPos++) {
-            std::cout << "...at pos " << bvPos << " : \n";
+            // std::cout << "...at pos " << bvPos << " : \n";
             // std::cout << getExpression(rvarName, varVector_0, varMap_0, "_0").extract(bvPos, bvPos) << "\n";
             // s.push(); s.add(getExpression(rvarName, varVector_0, varMap_0, "_0").extract(bvPos, bvPos) == 0);
             // s.push(); s.add(getExpression(rvarName, varVector_1, varMap_1, "_1").extract(bvPos, bvPos) == 1);
             z3::solver rs(c);
             rs.add(s.assertions());
-            int powbvPos = 1 << bvPos;
-            rs.add((((getExpression(rvarName, varVector_0, varMap_0, "_0")&(powbvPos)) / (powbvPos)) == 0));
-            rs.add((((getExpression(rvarName, varVector_1, varMap_1, "_1")&(powbvPos)) / (powbvPos)) == 1));
-            // rs.add(getExpression(rvarName, varVector_0, varMap_0, "_0").extract(bvPos, bvPos) == 0);
-            // rs.add(getExpression(rvarName, varVector_1, varMap_1, "_1").extract(bvPos, bvPos) == 1);
+            // int powbvPos = 1 << bvPos;
+            // rs.add((((getExpression(rvarName, varVector_0, varMap_0, "_0")&(powbvPos)) / (powbvPos)) == 0));
+            // rs.add((((getExpression(rvarName, varVector_1, varMap_1, "_1")&(powbvPos)) / (powbvPos)) == 1));
+            rs.add(getExpression(rvarName, varVector_0, varMap_0, "_0").extract(bvPos, bvPos) == 0);
+            rs.add(getExpression(rvarName, varVector_1, varMap_1, "_1").extract(bvPos, bvPos) == 1);
 
+            // asserting other random variables equal for _0 and _1
             for(auto orv:randomList) {
                 if(orv.second != rvarName) {
                     rs.add(getExpression(orv.second, varVector_0, varMap_0, "_0") == getExpression(orv.second, varVector_1, varMap_1, "_1"));
@@ -85,7 +86,6 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
             for(auto sm:secretMaskList) {
                 rs.add(getExpression(sm.second, varVector_0, varMap_0, "_0") == getExpression(sm.second, varVector_1, varMap_1, "_1"));
             }
-            // rs.add(getExpression("a", varVector_0, varMap_0, "_0") == getExpression("a", varVector_1, varMap_1, "_1"));
 
             // check dependence of intermediate variables
             std::string ivarName;
@@ -93,23 +93,24 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
             for(int intermIndex=0; intermIndex<intermList.size(); intermIndex++) {
                 auto w = intermList[intermIndex];
                 ivarDetails = getVariableType(w, ivarName);
-                if(ivarName!="sboxm") continue;
+                // if(ivarName!="sboxm") continue;
 
-                std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
+                // std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
                 if(checkDependenceUtil(w, rs, c, varVector_0, varMap_0, varVector_1, varMap_1)) {
-                    std::cout << "   ...dependent...\n";
+                    // std::cout << "   ...dependent...\n";
                     depIntermIndex.insert(intermIndex);
                 } else {
-                    std::cout << "   ...non-dependent...\n";
+                    // std::cout << "   ...non-dependent...\n";
                 }
             }
 
             // s.pop();
             // s.pop();
-            break;
+            // break;
         }
     }
 
+    std::cout << "   ...non-dependent variables...:\n";
     for(auto w:intermList) {
         bool isDep = false;
         for(auto d:depIntermIndex) {
@@ -120,7 +121,7 @@ varListType checkRandomDependence(varListType randomList, varListType secretList
         }
         if(!isDep) {
             nonDepList.push_back(w);
-            // std::cout << w.second << "\n";
+            std::cout << "   ...|"+w.second << "|...\n";
         }
     }
 

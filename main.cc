@@ -23,24 +23,24 @@ int main() {
         std::cout << "Extracting list of variables...\n\n";
         std::cout << "Declaring z3 variables corresponding to :\n";
 
-        getVariablesList(inputList, "input.txt");
+        getVariablesList(inputList, "input3/input.txt");
         std::cout << "...input variables...\n";
         declareVariables(inputList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        getVariablesList(randomList, "random.txt");
+        getVariablesList(randomList, "input3/random.txt");
         std::cout << "...random variables...\n";
         declareVariables(randomList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        getVariablesList(intermList, "intermediate.txt");
+        getVariablesList(intermList, "input3/intermediate.txt");
         std::cout << "...intermediate variables...\n";
         declareVariables(intermList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
-        getVariablesList(secretList, "secret.txt");
+        getVariablesList(secretList, "input3/secret.txt");
         std::cout << "...secret variables...\n";
         declareVariables(secretList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
 
-        getVariablesList(secretMaskList, "secretmask.txt");
+        getVariablesList(secretMaskList, "input3/secretmask.txt");
         std::cout << "...secret key masking variables...\n";
         declareVariables(secretMaskList, c, varVector_0, varMap_0, varVector_1, varMap_1);
 
@@ -80,7 +80,7 @@ int main() {
         }
     }
     std:: cout << "...reading statements...\n";
-    addAssertions("AES_mixcols_masked_src_unsafe.txt", varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    addAssertions("input3/secondOrderMaskingMultiply.txt", varVector_0, varMap_0, varVector_1, varMap_1, s, c);
     // std::cout << s.assertions() << "\n";
     std::cout << "...added all stmt assertions for bv_0 & bv_1\n";
     std::cout << std::endl;
@@ -91,10 +91,11 @@ int main() {
     varListType nonDepList = checkRandomDependence(randomList, secretList, secretMaskList, intermList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
     // final secret leakage check
+    std::cout << "\nChecking secret variable leakage : \n";
     // varListType nonDepList = {{"uint8_t", "t[4]"},{"uint8_t", "t2[4]"}};
-    // std::set<std::string> leakList = checkSecretLeakage(nonDepList, randomList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
+    std::set<std::string> leakList = checkSecretLeakage(nonDepList, randomList, secretList, secretMaskList, varVector_0, varMap_0, varVector_1, varMap_1, s, c);
 
-    std::cout << "\n\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
+    std::cout << "\nTotal time elapsed : " << (clock()-tStart)/CLOCKS_PER_SEC << " seconds.\n";
 
     return 0;
 }
