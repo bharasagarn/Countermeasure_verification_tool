@@ -1,3 +1,0 @@
-uint8_t in[4]
-uint8_t sbox[256]
-uint8_t xtime[256]

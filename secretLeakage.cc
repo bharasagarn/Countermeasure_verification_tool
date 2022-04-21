@@ -31,15 +31,10 @@ std::set<std::string> checkSecretLeakage(varListType nonDepList, varListType ran
 
         if(svarDetails[0]==1) {// single bv variable
             for(int bvPos=0; bvPos<svarDetails[1]; bvPos++) {
-                // std::cout << "...at bv pos " << bvPos << " : ";
                 z3::solver ss(c);
                 ss.add(sc.assertions());
                 z3::expr svar_0 = getExpression(svarName, varVector_0, varMap_0, "_0");
                 z3::expr svar_1 = getExpression(svarName, varVector_1, varMap_1, "_1");
-                // std::cout << svar_0 << "\n";
-                // int powbvPos = 1 << bvPos;
-                // ss.add((((svar_0&(powbvPos)) / (powbvPos)) == 0));
-                // ss.add((((svar_1&(powbvPos)) / (powbvPos)) == 1));
                 ss.add((svar_0^getExpression(smaskName, varVector_0, varMap_0, "_0")).extract(bvPos,bvPos)==0);
                 ss.add((svar_1^getExpression(smaskName, varVector_1, varMap_1, "_1")).extract(bvPos,bvPos)==1);
 
@@ -48,28 +43,20 @@ std::set<std::string> checkSecretLeakage(varListType nonDepList, varListType ran
                 std::vector<int> ivarDetails;
                 for(auto w:nonDepList) {
                     ivarDetails = getVariableType(w, ivarName);
-                    // if(ivarName!="t3x") continue;
-                    // std::cout << "   ...checking with random dependent variable "+ivarName+"\n";
 
                     if(checkDependenceUtil(w, ss, c, varVector_0, varMap_0, varVector_1, varMap_1)) leakList.insert(ivarName);
                 }
-
-                // s.pop();
-                // s.pop();
-                // break;
             }
+
         } else if(svarDetails[0]==2) {// bv array
             for(int sarrPos=0; sarrPos<svarDetails[2]; sarrPos++) {
                 std::cout << "checking for secret variable position : " << sarrPos << "\n";
                 for(int bvPos=0; bvPos<svarDetails[1]; bvPos++) {
-                    // std::cout << "...at bv pos " << bvPos << " : \n";
                     z3::solver ss(c);
                     ss.add(sc.assertions());
                     z3::expr svar_0 = z3::select(getExpression(svarName, varVector_0, varMap_0, "_0"), sarrPos);
                     z3::expr svar_1 = z3::select(getExpression(svarName, varVector_1, varMap_1, "_1"), sarrPos);
-                    // int powbvPos = 1 << bvPos;
-                    // ss.add((((svar_0&(powbvPos)) / (powbvPos)) == 0));
-                    // ss.add((((svar_1&(powbvPos)) / (powbvPos)) == 1));
+
                     ss.add((svar_0^getExpression(smaskName, varVector_0, varMap_0, "_0")).extract(bvPos,bvPos)==0);
                     ss.add((svar_1^getExpression(smaskName, varVector_1, varMap_1, "_1")).extract(bvPos,bvPos)==1);
 
@@ -78,16 +65,10 @@ std::set<std::string> checkSecretLeakage(varListType nonDepList, varListType ran
                     std::vector<int> ivarDetails;
                     for(auto w:nonDepList) {
                         ivarDetails = getVariableType(w, ivarName);
-                        // if(ivarName!="t") continue;
-                        // std::cout << "   ...checking with intermediate variable "+ivarName+"\n";
                         if(checkDependenceUtil(w, ss, c, varVector_0, varMap_0, varVector_1, varMap_1)) leakList.insert(ivarName);
                     }
 
-                    // s.pop();
-                    // s.pop();
-                    // break;
                 }
-                // break;
             }
         }
 

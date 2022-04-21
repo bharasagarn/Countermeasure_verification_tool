@@ -1,0 +1,37 @@
+// key -> a masked
+// sbox -> unmasked
+// xtime -> unmasked
+// out -> mixcols output
+void mixcols_masked(uint8_t* in, uint8_t* out, uint8_t a, uint8_t x) {
+    uint8_t sboxm[256]; // a masked -> b masked
+    uint8_t b = rand()%256;
+
+    for(int i=0; i<n; i++) {
+    	sboxm[i] = sbox[i^a]^b;
+    }
+
+    uint8_t temp[4]; // b masked
+    uint8_t t[4];  // a masked
+    uint8_t t2[4]; // b masked
+    for(int i=0; i<4; i++) {
+    	t[i] = in[i]^key[i];
+    	t2[i] = sboxm[t[i]];
+    	temp[i] = t2[i];
+    }
+
+    uint8_t t3x[4]; // x masked (since, output has to be x masked)
+    uint8_t t3[4]; // (x,b) masked
+    uint8_t t4[4]; // b masked
+    uint8_t t5[4]; // (x,b) masked
+    uint8_t t6[4]; // b masked
+    uint8_t t7[4]; // (x,b) masked
+    for(int i=0; i<4; i++) {
+    	t3x[i] = xtime[temp[i]]^x;
+    	t3[i] = t3x[i]^b;
+    	t4[i] = t3[i]^temp[(i+1)%4];
+    	t5[i] = t4[i]^xtime[temp[(i+1)%4]];
+    	t6[i] = t5[i]^temp[(i+2)%4];
+    	t7[i] = t6[i]^temp[(i+3)%4];
+    	out[i] = t7[i]^b;
+    }
+}

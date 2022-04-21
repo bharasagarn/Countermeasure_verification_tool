@@ -1,0 +1,22 @@
+uint8_t* subBytesMasked(uint8_t* state) {
+    uint8_t nextState[16];
+
+    nextState[0] = sboxm[state[0]];
+    nextState[1] = sboxm[state[1]];
+    nextState[2] = sboxm[state[2]];
+    nextState[3] = sboxm[state[3]];
+    nextState[4] = sboxm[state[4]];
+    nextState[5] = sboxm[state[5]];
+    nextState[6] = sboxm[state[6]];
+    nextState[7] = sboxm[state[7]];
+    nextState[8] = sboxm[state[8]];
+    nextState[9] = sboxm[state[9]];
+    nextState[10] = sboxm[state[10]];
+    nextState[11] = sboxm[state[11]];
+    nextState[12] = sboxm[state[12]];
+    nextState[13] = sboxm[state[13]];
+    nextState[14] = sboxm[state[14]];
+    nextState[15] = sboxm[state[15]];
+    
+    return nextState;
+}

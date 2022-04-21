@@ -41,9 +41,6 @@ pairStringType getArrayDetails(std::string s) {
 }
 
 std::vector<int> getVariableType(pairStringType rawVariable, std::string& varName) {
-
-    // std:: cout << "Entered getVariableType\n";
-    // std:: cout << "rawVriable: ("+rawVariable.first+","+rawVariable.second+")\n";
     
     std::vector<int> res = {1,8,0};
     // {{1->bv,2->bv_arr},{bv_sz},{bv_arr_sz}}
@@ -61,14 +58,11 @@ std::vector<int> getVariableType(pairStringType rawVariable, std::string& varNam
         varName = temp.first;
         res[2] = stoi(temp.second);
     }
-    // std:: cout << "Exiting getVariableType\n";
 
     return res;
 }
 
 void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1) {
-
-    // std:: cout << "Entered declareVariables\n";
 
 
     for(auto rawVariable: varList) {
@@ -78,7 +72,6 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         
 
         if(varType[0]==1) {
-            // std::cout << "bv_" << varType[1] << "\n";
             z3::expr x(c);
 
             x = c.bv_const((varName+"_0").c_str(), varType[1]);
@@ -92,8 +85,6 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
         else if(varType[0]==2) {
 
             pairStringType temp = getArrayDetails(rawVariable.second);
-            // std::cout << "Declaring " << varName << "\n";
-            // std::cout << "array : " << varType[2] << "->" << varType[1] << "\n";
 
             z3::sort BVin = c.bv_sort(8); // fixed at 8 now (every array can have upto 256 elements, perhaps not all used)
             z3::sort BVout = c.bv_sort(varType[1]);
@@ -106,35 +97,11 @@ void declareVariables(varListType varList, z3::context& c, z3::expr_vector& varV
             z3::expr exprArr_1 = c.constant((varName+"_1").c_str(),BVArray);
             varVector_1.push_back(exprArr_1);
             varMap_1[temp.first+"_1"] = int(varVector_1.size()-1);
-
-            // z3::sort BVInd = c.bv_sort(8);
-            // z3::sort PosInt = c.int_sort();
-            // z3::sort posVectorSort = c.array_sort(BVInd, PosInt);
-
-            // z3::expr arrPosVector_0 = c.constant((varName+"_pos_0").c_str(), posVectorSort);
-            // varVector_0.push_back(arrPosVector_0); varMap_0[varName+"_pos_0"] = int(varVector_0.size()-1);
-            // z3::expr arrPosVector_1 = c.constant((varName+"_pos_1").c_str(), posVectorSort);
-            // varVector_1.push_back(arrPosVector_1); varMap_1[varName+"_pos_1"] = int(varVector_1.size()-1);
-
-            // for(int ind=0; ind<256; ind++) {
-            //     z3::expr x_0(c);
-            //     x_0 = c.bv_const((varName+"["+std::to_string(ind)+"]_0").c_str(), varType[1]);
-            //     varVector_0.push_back(x_0);
-            //     // varMap_0[varName+"["+std::to_string(ind)+"]_0"] = varVector_0.size()-1;
-            //     z3::store(arrPosVector_0, ind, int(varVector_0.size()-1));
-
-            //     z3::expr x_1(c);
-            //     x_1 = c.bv_const((varName+"["+std::to_string(ind)+"]_1").c_str(), varType[1]);
-            //     varVector_1.push_back(x_1);
-            //     // varMap_1[varName+"["+std::to_string(ind)+"]_1"] = varVector_1.size()-1;
-            //     z3::store(arrPosVector_1, ind, int(varVector_1.size()-1));
-            // }
             
         }
         
     }
 
-    // std:: cout << "Exiting declareVariables\n";
 }
 
 void declareConstants(z3::context& c, z3::expr_vector& varVector_0, varMapType& varMap_0, z3::expr_vector& varVector_1, varMapType& varMap_1) {
