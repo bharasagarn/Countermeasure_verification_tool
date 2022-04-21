@@ -1,0 +1,22 @@
+uint8_t* addRoundKeyMasked(uint8_t* state, uint8_t* roundKeyMasked) {
+    uint8_t nextState[16];
+
+    nextState[0] = state[0]^roundKeyMasked[0];
+    nextState[1] = state[1]^roundKeyMasked[1];
+    nextState[2] = state[2]^roundKeyMasked[2];
+    nextState[3] = state[3]^roundKeyMasked[3];
+    nextState[4] = state[4]^roundKeyMasked[4];
+    nextState[5] = state[5]^roundKeyMasked[5];
+    nextState[6] = state[6]^roundKeyMasked[6];
+    nextState[7] = state[7]^roundKeyMasked[7];
+    nextState[8] = state[8]^roundKeyMasked[8];
+    nextState[9] = state[9]^roundKeyMasked[9];
+    nextState[10] = state[10]^roundKeyMasked[10];
+    nextState[11] = state[11]^roundKeyMasked[11];
+    nextState[12] = state[12]^roundKeyMasked[12];
+    nextState[13] = state[13]^roundKeyMasked[13];
+    nextState[14] = state[14]^roundKeyMasked[14];
+    nextState[15] = state[15]^roundKeyMasked[15];
+    
+    return nextState;
+}

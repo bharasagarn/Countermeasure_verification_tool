@@ -40,5 +40,24 @@ checking for secret variable position : 14
 checking for secret variable position : 15
 ...leaking variables...:
    ...none...
+...for secret variable roundKeyMasked...
+checking for secret variable position : 0
+checking for secret variable position : 1
+checking for secret variable position : 2
+checking for secret variable position : 3
+checking for secret variable position : 4
+checking for secret variable position : 5
+checking for secret variable position : 6
+checking for secret variable position : 7
+checking for secret variable position : 8
+checking for secret variable position : 9
+checking for secret variable position : 10
+checking for secret variable position : 11
+checking for secret variable position : 12
+checking for secret variable position : 13
+checking for secret variable position : 14
+checking for secret variable position : 15
+...leaking variables...:
+   ...none...
 
-Total time elapsed : 14 seconds.
+Total time elapsed : 6 seconds.
